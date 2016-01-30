@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="col-md-6">
+    <form action="/" method="post">
+      <label>Number of Teams</label>
+      <br>
+      <input name="teams" type="number" name="quantity" min="1" class="form-control" placeholder="1">
+      <br>
+      <label>Teammates</label>
+      <textarea name="members" placeholder="Type in some names" rows="5" class="form-control"></textarea>
+      <br>
+      <input type="submit" value="Generate" class="btn btn-primary">
+    </form>
+  </div>
+  <div class="col-md-6">
+    <% unless @results == nil %>
+      <% @results.each do |id, team| %>
+        <h4>Team: <%= id %></h3>
+        <p><%= team %></p>
+      <% end %>
+      <hr>
+      <h4>Number of Teams: <%= @teams %>, Participants: <%= @count %></h3>
+    <% else %>
+      <div class="empty-box">
+        <span class="placeholder">Results Will Be Shown Here</span>
+      </div>
+    <% end %>
+  </div>
+</div>
+
