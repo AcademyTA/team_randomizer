@@ -5,10 +5,10 @@ get "/" do
 end
 
 post "/" do
-  @teams   = params["teams"].to_i
-  @members = params["members"].scan(/[0-9A-Za-z]+/).shuffle
-  @count   = @members.count
-  @results = randomizer(@teams, @members)
+  @teams        = params["teams"].to_i
+  @members      = params["members"].scan(/[0-9A-Za-z]+/).shuffle
+  @member_count = @members.count
+  @results      = randomizer(@teams, @members)
   erb :index, layout: :default
 end
 

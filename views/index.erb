@@ -12,7 +12,12 @@
     </form>
   </div>
   <div class="col-md-6">
-    <% unless @results == nil %>
+    <br>
+    <% if @teams != nil && @teams > @member_count %>
+      <div class="alert alert-danger">
+        <p class="text-center">You cannot have more team members than teams.</p>
+      </div>
+    <% elsif @results != nil %>
       <table class="table table-striped">
         <% @results.each do |id, team| %>
           <tr>
@@ -22,15 +27,15 @@
         <% end %>
       </table>
       <hr>
-      <h4>Number of Teams: <%= @teams %>, Participants: <%= @count %></h4>
+      <h4>Number of Teams: <%= @teams %>, Participants: <%= @member_count %></h4>
     <% else %>
-      <div class="empty-box">
-        <span class="placeholder">Results Will Be Shown Here</span>
+      <div class="alert alert-info">
+        <p class="text-center">Results Will Be Shown Here</p>
       </div>
     <% end %>
   </div>
 </div>
-<div class=" container footer text-center">
+<div class="container footer text-center">
   <a href="https://github.com/CodeCoreTA/team_randomizer" target="_blank">LINK TO GITHUB REPO HERE</a>
 </div>
 
