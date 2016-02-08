@@ -7,18 +7,28 @@ get "/" do
 end
 
 post "/" do
-  session[:teams]        = params["teams"].to_i
+  session[:number]       = params["number"].to_i
   session[:members]      = params["members"].scan(/[0-9A-Za-z]+/).shuffle
+  session[:method]       = params["method"]
   session[:member_count] = session[:members].count
-  session[:results]      = randomizer(session[:teams], session[:members])
+  session[:results]      = choose_randomizer
   erb :index, layout: :default
 end
 
-def randomizer(number_of_teams, members)
-  teams = Array.new(number_of_teams) { Array.new }
+def choose_randomizer
+  if session[:method] == "members"
+    team_count = (session[:members].count / session[:number].to_f).ceil
+    member_randomizer(team_count)
+  else
+    team_randomizer
+  end
+end
 
-  while members.count > 0
-    teams.each { |team| team.push(members.pop) unless members.empty? }
+def team_randomizer
+  teams = Array.new(session[:number]) { Array.new }
+
+  while session[:members].count > 0
+    teams.each { |team| team.push(session[:members].pop) unless session[:members].empty? }
   end
 
   teams.each_with_index.inject({}) do |result, (team, index)|
@@ -27,3 +37,12 @@ def randomizer(number_of_teams, members)
   end
 end
 
+def member_randomizer(team_count)
+  teams = Array.new
+  team_count.times { teams << session[:members].shift(session[:number]) }
+
+  teams.each_with_index.inject({}) do |result, (team, index)|
+    result[index + 1] = team.join(', ')
+    result
+  end
+end
