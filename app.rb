@@ -1,14 +1,16 @@
 require 'sinatra'
 
+enable :sessions
+
 get "/" do
   erb :index, layout: :default
 end
 
 post "/" do
-  @teams        = params["teams"].to_i
-  @members      = params["members"].scan(/[0-9A-Za-z]+/).shuffle
-  @member_count = @members.count
-  @results      = randomizer(@teams, @members)
+  session[:teams]        = params["teams"].to_i
+  session[:members]      = params["members"].scan(/[0-9A-Za-z]+/).shuffle
+  session[:member_count] = session[:members].count
+  session[:results]      = randomizer(session[:teams], session[:members])
   erb :index, layout: :default
 end
 

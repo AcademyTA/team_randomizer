@@ -13,13 +13,13 @@
   </div>
   <div class="col-md-6">
     <br>
-    <% if @teams != nil && @teams > @member_count %>
+    <% if session[:teams] != nil && session[:teams] > session[:member_count] %>
       <div class="alert alert-danger">
         <p class="text-center">You cannot have more team members than teams.</p>
       </div>
-    <% elsif @results != nil %>
+    <% elsif session[:results] != nil %>
       <table class="table table-striped">
-        <% @results.each do |id, team| %>
+        <% session[:results].each do |id, team| %>
           <tr>
             <td style="width:100px"><h4>Team: <%= id %></h4></td>
             <td><p><%= team %></p></td>
@@ -27,7 +27,7 @@
         <% end %>
       </table>
       <hr>
-      <h4>Number of Teams: <%= @teams %>, Participants: <%= @member_count %></h4>
+      <h4>Number of Teams: <%= session[:teams] %>, Participants: <%= session[:member_count] %></h4>
     <% else %>
       <div class="alert alert-info">
         <p class="text-center">Results Will Be Shown Here</p>
