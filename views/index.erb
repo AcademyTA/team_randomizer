@@ -18,9 +18,9 @@
   </div>
   <div class="col-md-6">
     <br>
-    <% if session[:teams] != nil && session[:teams] > session[:member_count] %>
+    <% if session[:results] != nil && session[:results].count > session[:member_count] %>
       <div class="alert alert-danger">
-        <p class="text-center">You cannot have more team members than teams.</p>
+        <p class="text-center">You cannot have more teams than team members.</p>
       </div>
     <% elsif session[:results] != nil %>
       <table class="table table-striped">
